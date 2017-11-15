@@ -1,0 +1,23 @@
+--These queries slice the violation_text data to determine unique values--
+select distinct(Left(violation_text, 10)) AS Section_Number --7 unique Section codes 
+from violations_list
+where violation_text like 'Section%' 
+order by Section_Number desc
+
+select distinct(left(violation_text, 17)) AS MCL_Number --76 unique MCL codes 
+from violations_list 
+where violation_text like 'M.C.L%'
+order by MCL_Number
+
+select distinct(left(violation_text, 18)) AS TCA_Code 
+from violations_list 
+where violation_text like 'T.C.A%'
+order by TCA_Code
+
+select distinct(left(violation_text, 18)) AS Non_Legal --67 unique non legal codes (some try to represent legal codes )
+from violations_list 
+where violation_text not like 'T.C.A%'
+and violation_text not like 'M.C.L%'
+and violation_text not like 'Section%'
+order by Non_Legal
+
